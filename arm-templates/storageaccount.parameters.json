@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "value": "globostg001" 
+            "value": "tqglobostg001" 
         },
         "location": {
-            "value": "Central India" 
+            "value": "centralindia"
         },
         "sku": {
             "value": "Standard_LRS"
