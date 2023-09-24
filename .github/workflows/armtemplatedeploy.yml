@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: armTemplateDeployment
 
 on:
@@ -28,4 +26,13 @@ jobs:
           region: Central India
           template: ./arm-templates/resourcegroup.json
           deploymentName: rg-githubactions
-            
+
+      - name: Deploy Storage Account
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: rg-githubactions
+          subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
+          region: Central India
+          template: ./arm-templates/resourcegroup.json
+          deploymentName: rg-githubactions            
