@@ -35,5 +35,8 @@ jobs:
           subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
           region: Central India
           template: ./arm-templates/storageaccount.json
-          parameters: ./arm-templates/storageaccount.parameters.json
+          parameters: 
+            ./arm-templates/storageaccount.parameters.json
+            storageAccountName=tqglobostg002
+            location="Australia East"
           deploymentMode: incremental
