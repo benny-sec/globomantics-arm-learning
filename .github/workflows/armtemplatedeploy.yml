@@ -29,6 +29,7 @@ jobs:
 
       - name: Deploy Storage Account
         uses: Azure/arm-deploy@v1
+        id: storageAccountDeploy
         with:
           scope: resourcegroup
           resourceGroupName: rg-githubactions
@@ -37,6 +38,6 @@ jobs:
           template: ./arm-templates/storageaccount.json
           parameters: 
             ./arm-templates/storageaccount.parameters.json
-            storageAccountName=tqglobostg002
-            location="Australia East"
           deploymentMode: incremental
+          
+      - run: echo ${{ steps.storageAccountDeploy.outputs.BlobUri }}
