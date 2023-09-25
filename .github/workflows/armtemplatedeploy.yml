@@ -34,5 +34,6 @@ jobs:
           resourceGroupName: rg-githubactions
           subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
           region: Central India
-          template: ./arm-templates/resourcegroup.json
-          deploymentName: rg-githubactions            
+          template: ./arm-templates/storageaccount.json
+          parameters: ./arm-templates/storageaccount.parameters.json
+          deploymentMode: incremental
