@@ -41,7 +41,7 @@ jobs:
         uses: Azure/cli@v1
         with:
           inlineScript: |
-            az deployement group create \
+            az deployment group create \
             --resource-group ${{ env.resource_group_name }} \
             --template-file ./bicep-templates/virtualnetwork.bicep \
             --parameters \
