@@ -1,0 +1,49 @@
+name: "Bicep Deploy Workflow"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
+
+jobs:
+  bicepAzCliDeploy:
+    name: Bicep AZ CLI Deploy job
+    runs-on: ubuntu-22.04
+
+    env:
+      resource_group_name: rg-bicep-azcli-githubactions
+      location: Central India
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS  }}
+      
+      - name: Deploy Resource Group
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az deployment sub create \
+            --name ${{ env.resource_group_name }} \
+            --location "${{ envv.location }}" \
+            --template-file ./bicep-templates/resourcegroup.bicep \
+            --parameters \
+            resourceGroupName=${{ env.resource_group_name }} \
+            location="${{env.location}}"
+      
+      - name: Deploy virtual network
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az deployement group create \
+            --resource-group ${{ env.resource_group_name }} \
+            --template-file ./bicep-templates/virtualnetwork.bicep \
+            --parameters \
+            vNetPrefix=bicepazcli \
+            location="${{ env.location }}"
