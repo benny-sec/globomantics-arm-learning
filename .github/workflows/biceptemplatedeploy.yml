@@ -73,7 +73,7 @@ jobs:
           deploymentName: ${{ env.resource_group_name }}
           template: ./bicep-templates/resourcegroup.bicep
           parameters:
-            resourceGroupName=${{ env.resource_group_name }}
+            resourceGroupName="${{ env.resource_group_name }}"
             location=${{ env.location }}
 
       - name: Deploy vnet    
