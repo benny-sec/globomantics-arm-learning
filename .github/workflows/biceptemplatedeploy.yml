@@ -74,7 +74,7 @@ jobs:
           template: ./bicep-templates/resourcegroup.bicep
           parameters:
             resourceGroupName="${{ env.resource_group_name }}"
-            location=${{ env.location }}
+            location="${{ env.location }}"
 
       - name: Deploy vnet    
         uses: Azure/arm-deploy@v1
@@ -85,4 +85,4 @@ jobs:
           template: ./bicep-templates/virtualnetwork.bicep
           parameters:
             vNetPrefix=biceparmdeploy
-            location=${{ env.location }}
+            location="${{ env.location }}"
