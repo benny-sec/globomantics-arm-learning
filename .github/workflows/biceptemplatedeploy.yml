@@ -31,7 +31,7 @@ jobs:
           inlineScript: |
             az deployment sub create \
             --name ${{ env.resource_group_name }} \
-            --location "${{ envv.location }}" \
+            --location "${{ env.location }}" \
             --template-file ./bicep-templates/resourcegroup.bicep \
             --parameters \
             resourceGroupName=${{ env.resource_group_name }} \
