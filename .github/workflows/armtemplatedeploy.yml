@@ -8,7 +8,7 @@ on:
 
 env:
   resourceGroupName: rg-githubactions
-  location: "Austrila East"
+  location: Austraila East
   subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
 
 jobs:
@@ -55,5 +55,5 @@ jobs:
           template: ./arm-templates/virtualmachine.json
           parameters: 
             adminPassword=${{ secrets.UBUNTU_ADMIN_PASSWORD }}
-            location="${{ env.location }}"
+            location=${{ env.location }}
           deploymentMode: incremental
