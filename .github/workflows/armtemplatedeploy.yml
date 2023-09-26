@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  resourceGroupName: rg-githubactions
+  location: "Central India"
+  subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
+
 jobs:
   armDeploy:
     runs-on: ubuntu-latest
@@ -18,23 +23,23 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Resource Group rg-githubactions
+      - name: Deploy Resource Group ${{ env.resourceGroupName }}
         uses: Azure/arm-deploy@v1
         with:
           scope: subscription
-          subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
-          region: Central India
+          subscriptionId: ${{ env.subscriptionId }}
+          region: ${{ env.location }}
           template: ./arm-templates/resourcegroup.json
-          deploymentName: rg-githubactions
+          deploymentName: ${{ env.resourceGroupName }}
 
       - name: Deploy Storage Account
         uses: Azure/arm-deploy@v1
         id: storageAccountDeploy
         with:
           scope: resourcegroup
-          resourceGroupName: rg-githubactions
-          subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
-          region: Central India
+          resourceGroupName: ${{ env.resourceGroupName }}
+          subscriptionId: ${{ env.subscriptionId }}
+          region: ${{ env.location }}
           template: ./arm-templates/storageaccount.json
           parameters: 
             ./arm-templates/storageaccount.parameters.json
@@ -44,10 +49,11 @@ jobs:
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
-          resourceGroupName: rg-githubactions
-          subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
-          region: Central India
+          resourceGroupName: ${{ env.resourceGroupName }}
+          subscriptionId: ${{ env.subscriptionId }}
+          region: ${{ env.location }}
           template: ./arm-templates/virtualmachine.json
           parameters: 
             adminPassword=${{ secrets.UBUNTU_ADMIN_PASSWORD }}
+            location=${{ env.location }}
           deploymentMode: incremental
