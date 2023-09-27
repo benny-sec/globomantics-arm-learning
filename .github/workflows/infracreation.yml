@@ -1,4 +1,4 @@
-name: "Bicep Deploy Workflow"
+name: "Env Creation Workflow - Dev, QA, PROD"
 
 on:
   push:
