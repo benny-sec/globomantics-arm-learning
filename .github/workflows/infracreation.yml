@@ -47,9 +47,9 @@ jobs:
           resourceGroupName: ${{ env.resourceGroupName }}
           subscriptionId: ${{ env.subscriptionId }}
           region: ${{ env.location }}
-          template: ./bicep-templates/storageaccount.json
+          template: ./bicep-templates/storageaccount.bicep
           parameters: 
-            ./bicep-templates/storageaccount.parameters.json
+            ./arm-templates/storageaccount.parameters.json
             location="${{ env.location }}"
           deploymentMode: incremental
 
@@ -60,7 +60,7 @@ jobs:
           resourceGroupName: ${{ env.resourceGroupName }}
           subscriptionId: ${{ env.subscriptionId }}
           region: ${{ env.location }}
-          template: ./bicep-templates/virtualmachine.json
+          template: ./bicep-templates/virtualmachine.bicep
           parameters: 
             adminPassword=${{ secrets.UBUNTU_ADMIN_PASSWORD }}
             location="${{ env.location }}"
