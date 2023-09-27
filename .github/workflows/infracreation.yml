@@ -1,0 +1,69 @@
+name: "Bicep Deploy Workflow"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
+
+jobs:
+  createStagingEnv:
+    name: Create Staging Environment 
+    runs-on: ubuntu-22.04
+    env:
+      resourceGroupName: rg-stg
+      location: Central India
+    environment:
+      name: staging
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy resource group ${{ env.resourceGroupName }}
+
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: subscription
+          subscriptionId: ${{ env.subscriptionId }}
+          region: ${{ env.location }}
+          deploymentName: ${{ env.resourceGroupName }}
+          template: ./bicep-templates/resourcegroup.bicep
+          parameters:
+            resourceGroupName="${{ env.resourceGroupName }}"
+            location="${{ env.location }}"
+            
+      - name: Deploy Storage Account
+        uses: Azure/arm-deploy@v1
+        id: storageAccountDeploy
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resourceGroupName }}
+          subscriptionId: ${{ env.subscriptionId }}
+          region: ${{ env.location }}
+          template: ./bicep-templates/storageaccount.json
+          parameters: 
+            ./bicep-templates/storageaccount.parameters.json
+            location="${{ env.location }}"
+          deploymentMode: incremental
+
+      - name: Deploy Virtual Machine
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resourceGroupName }}
+          subscriptionId: ${{ env.subscriptionId }}
+          region: ${{ env.location }}
+          template: ./bicep-templates/virtualmachine.json
+          parameters: 
+            adminPassword=${{ secrets.UBUNTU_ADMIN_PASSWORD }}
+            location="${{ env.location }}"
+          deploymentMode: incremental
+
+
