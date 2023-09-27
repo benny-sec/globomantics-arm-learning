@@ -49,7 +49,7 @@ jobs:
           region: ${{ env.location }}
           template: ./bicep-templates/storageaccount.bicep
           parameters: 
-            ./arm-templates/storageaccount.parameters.json
+            ./bicep-templates/storageaccount.bicepparam
             location="${{ env.location }}"
           deploymentMode: incremental
 
@@ -63,6 +63,7 @@ jobs:
           template: ./bicep-templates/virtualmachine.bicep
           parameters: 
             adminPassword=${{ secrets.UBUNTU_ADMIN_PASSWORD }}
+            adminUsername=Matt
             location="${{ env.location }}"
           deploymentMode: incremental
 

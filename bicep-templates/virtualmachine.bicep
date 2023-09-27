@@ -2,6 +2,10 @@
 @secure()
 param adminPassword string
 
+@description('Enter the admin username')
+@secure()
+param adminUsername string
+
 @description('Enter the location to deploy the resource to')
 param location string
 
@@ -90,7 +94,7 @@ resource ubuntuVM1 'Microsoft.Compute/virtualMachines@2022-08-01' = {
     }
     osProfile: {
       computerName: 'ubuntuVM1'
-      adminUsername: 'Matt'
+      adminUsername: adminUsername
       adminPassword: adminPassword
     }
     storageProfile: {
