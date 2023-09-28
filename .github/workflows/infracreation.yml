@@ -1,23 +1,33 @@
-name: "Env Creation Workflow - Dev, QA, PROD"
+name: "Env Creation Workflow"
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-env:
-  subscriptionId: 8b256949-cf79-44b4-8c77-1c29b09ee5c2
+  workflow_call:
+    inputs:
+      envName:
+        description: "The name of the environment to be created (dev, staging or prod)"
+        required: true
+        default: "staging"
+        type: string
+      location:
+        description: "The region in which the environment should be created"
+        required: false
+        default: "centralIndia"
+        type: string
+      subscriptionId:
+        description: "The id of the subscription under which the environment should be created"
+        required: true
+        type: string
 
 jobs:
-  createStagingEnv:
-    name: Create Staging Environment 
+  createEnv:
+    name: Create ${{ inputs.envName }} Environment 
     runs-on: ubuntu-22.04
     env:
       resourceGroupName: rg-stg
-      location: Central India
+      location: ${{ inputs.location }}
+      subscriptionId: ${{ inputs.subscriptionId }}
     environment:
-      name: staging
+      name: ${{ inputs.envName }}
 
     steps:
       - uses: actions/checkout@v3

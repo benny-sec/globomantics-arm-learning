@@ -1,0 +1,17 @@
+name: "Reusable Env Creation Workflow"
+
+on:
+  workflow_dispatch:
+    inputs:
+      envName:
+        description: 'Type of environment to be created (dev, stg or prod)'
+        required: true
+        default: 'staging'
+
+jobs:
+  bicepCreateStaging:
+    uses: ./.github/workflows/infracreation.yml
+    with:
+      envName: "staging"
+      location: "centralIndia"
+      subscriptionId: "8b256949-cf79-44b4-8c77-1c29b09ee5c2"
