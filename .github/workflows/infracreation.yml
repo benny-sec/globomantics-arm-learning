@@ -66,7 +66,6 @@ jobs:
           region: ${{ env.location }}
           template: ./bicep-templates/storageaccount.bicep
           parameters: 
-            ./bicep-templates/storageaccount.bicepparam
             storageAccountName="${{ format('sa-{0}', inputs.envName) }}"
             location="${{ env.location }}"
           deploymentMode: incremental

@@ -1,11 +1,11 @@
 @description('Enter a name for the storage account')
-param storageAccountName string
+param storageAccountName string = 'tqglobostg001'
 
 @description('Enter a location to deploy the account to')
-param location string
+param location string = 'Central India'
 
 @description('Enter the storage account sku')
-param sku string
+param sku string = 'Standard_LRS'
 
 resource storageaccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
     name: storageAccountName
