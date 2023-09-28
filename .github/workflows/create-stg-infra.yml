@@ -1,0 +1,18 @@
+name: "Reusable Env Creation Workflow"
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  bicepCreateEnv:
+    uses: ./.github/workflows/create-infra.yml
+    with:
+      envName: "tqstaging"
+      githubEnvName: "staging"
+      location: "centralIndia"
+      subscriptionId: "8b256949-cf79-44b4-8c77-1c29b09ee5c2"
+    secrets:
+      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      ubuntuAdminPassword: ${{ secrets.UBUNTU_ADMIN_PASSWORD }}
+      ubuntuAdminUser: ${{ secrets.UBUNTU_ADMIN_USERNAME }}

@@ -4,15 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       envName:
-        description: 'Type of environment to be created (dev, stg or prod)'
+        description: 'Name of environment to be created (alpha-numeric)'
         required: true
-        default: 'staging'
+        default: 'tqdev001'
 
 jobs:
   bicepCreateEnv:
-    uses: ./.github/workflows/infracreation.yml
+    uses: ./.github/workflows/create-infra.yml
     with:
       envName: ${{ inputs.envName }}
+      githubEnvName: "dev"
       location: "centralIndia"
       subscriptionId: "8b256949-cf79-44b4-8c77-1c29b09ee5c2"
     secrets:

@@ -4,9 +4,12 @@ on:
   workflow_call:
     inputs:
       envName:
-        description: "The name of the environment to be created (dev, staging or prod)"
+        description: "The name of the environment to be created "
         required: true
-        default: "staging"
+        type: string
+      githubEnvName:
+        description: "The github environment to be used (dev, staging or prod)"
+        required: true
         type: string
       location:
         description: "The region in which the environment should be created"
@@ -34,7 +37,7 @@ jobs:
       location: ${{ inputs.location }}
       subscriptionId: ${{ inputs.subscriptionId }}
     environment:
-      name: ${{ inputs.envName }}
+      name: ${{ inputs.githubEnvName }}
     steps:
       - uses: actions/checkout@v3
 
