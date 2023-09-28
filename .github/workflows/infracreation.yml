@@ -33,7 +33,8 @@ jobs:
       resourceGroupName: rg-stg
       location: ${{ inputs.location }}
       subscriptionId: ${{ inputs.subscriptionId }}
-    
+    environment:
+      name: ${{ inputs.envName }}
     steps:
       - uses: actions/checkout@v3
 

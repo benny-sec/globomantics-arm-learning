@@ -19,5 +19,4 @@ jobs:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
       ubuntuAdminPassword: ${{ secrets.UBUNTU_ADMIN_PASSWORD }}
       ubuntuAdminUser: ${{ secrets.UBUNTU_ADMIN_USERNAME }}
-    environment:
-      name: staging
+      
