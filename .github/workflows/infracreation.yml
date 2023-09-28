@@ -17,6 +17,9 @@ on:
         description: "The id of the subscription under which the environment should be created"
         required: true
         type: string
+    secrets:
+      azureCredentials:
+        required: true
 
 jobs:
   createEnv:
@@ -35,7 +38,7 @@ jobs:
       - name: Azure Login
         uses: Azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.azureCredentials }}
 
       - name: Deploy resource group ${{ env.resourceGroupName }}
 
