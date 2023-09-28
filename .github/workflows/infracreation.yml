@@ -83,5 +83,3 @@ jobs:
             adminUsername=${{ secrets.ubuntuAdminUser }}
             location="${{ env.location }}"
           deploymentMode: incremental
-
-
