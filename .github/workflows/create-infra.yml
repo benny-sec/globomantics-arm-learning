@@ -1,4 +1,4 @@
-name: "Env Creation Workflow"
+name: "Env Creation Workflow Template"
 
 on:
   workflow_call:
