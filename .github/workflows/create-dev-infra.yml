@@ -1,4 +1,4 @@
-name: "Reusable Env Creation Workflow"
+name: "Create Dev Environment"
 
 on:
   workflow_dispatch:

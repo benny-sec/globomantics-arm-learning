@@ -1,4 +1,4 @@
-name: "Reusable Env Creation Workflow"
+name: "Create Staging Environment"
 
 on:
   workflow_dispatch:
