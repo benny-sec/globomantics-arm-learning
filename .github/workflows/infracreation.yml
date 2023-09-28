@@ -20,6 +20,10 @@ on:
     secrets:
       azureCredentials:
         required: true
+      ubuntuAdminPassword:
+        required: true
+      ubuntuAdminUser:
+        required: true
 
 jobs:
   createEnv:
@@ -29,9 +33,7 @@ jobs:
       resourceGroupName: rg-stg
       location: ${{ inputs.location }}
       subscriptionId: ${{ inputs.subscriptionId }}
-    environment:
-      name: ${{ inputs.envName }}
-
+    
     steps:
       - uses: actions/checkout@v3
 
@@ -76,8 +78,8 @@ jobs:
           region: ${{ env.location }}
           template: ./bicep-templates/virtualmachine.bicep
           parameters: 
-            adminPassword=${{ secrets.UBUNTU_ADMIN_PASSWORD }}
-            adminUsername=Matt
+            adminPassword=${{ secrets.ubuntuAdminPassword}}
+            adminUsername=${{ secrets.ubuntuAdminUser }}
             location="${{ env.location }}"
           deploymentMode: incremental
 
