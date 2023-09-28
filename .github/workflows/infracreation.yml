@@ -30,7 +30,7 @@ jobs:
     name: Create ${{ inputs.envName }} Environment 
     runs-on: ubuntu-22.04
     env:
-      resourceGroupName: rg-stg
+      resourceGroupName: ${{ format('rg-{0}', inputs.envName) }}
       location: ${{ inputs.location }}
       subscriptionId: ${{ inputs.subscriptionId }}
     environment:
@@ -67,6 +67,7 @@ jobs:
           template: ./bicep-templates/storageaccount.bicep
           parameters: 
             ./bicep-templates/storageaccount.bicepparam
+            storageAccountName="${{ format('sa-{0}', inputs.envName) }}"
             location="${{ env.location }}"
           deploymentMode: incremental
 

@@ -9,14 +9,13 @@ on:
         default: 'staging'
 
 jobs:
-  bicepCreateStaging:
+  bicepCreateEnv:
     uses: ./.github/workflows/infracreation.yml
     with:
-      envName: "staging"
+      envName: ${{ inputs.envName }}
       location: "centralIndia"
       subscriptionId: "8b256949-cf79-44b4-8c77-1c29b09ee5c2"
     secrets:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
       ubuntuAdminPassword: ${{ secrets.UBUNTU_ADMIN_PASSWORD }}
       ubuntuAdminUser: ${{ secrets.UBUNTU_ADMIN_USERNAME }}
-      
